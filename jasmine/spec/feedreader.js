@@ -102,21 +102,18 @@ $(function() {
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
-        var entries1, entries2;
+        var feed1, feed2;
         beforeEach(function(done) {
-            // First set of entries from first feed in array
-            entries1 = $('.entry');
-            // Load the entries in the second feed in array
+            // Load the html in the initial feed
+            feed1 = $('.feed').html();
+            // Load the second feed in array
             loadFeed(1, done);
         });
         it('loads new feed', function(done) {
-            entries2 = $('.entry');
-            for (var i = 0; i < entries2.length; i++) {
-                // Check if content of h2 is the same
-                expect(entries1[i].children[0].innerHTML == entries2[i].children[0].innerHTML).toBe(false);
-                // Check if content of p is the same
-                expect(entries1[i].children[1].innerHTML == entries2[i].children[1].innerHTML).toBe(false);
-            }
+            // Load the html in the second feed
+            feed2 = $('.feed').html();
+            // Check that the html of the two feeds does not match
+            expect(feed1 == feed2).toBe(false);
             done();
         });
      });
