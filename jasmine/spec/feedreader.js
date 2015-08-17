@@ -93,10 +93,27 @@ $(function() {
             done();
          });
     });
-    /* TODO: Write a new test suite named "New Feed Selection"
-
+    /* TODO: Write a new test suite named "New Feed Selection" */
+    describe('New Feed Selection', function() {
         /* TODO: Write a test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
          * Remember, loadFeed() is asynchronous.
          */
+        var entries1, entries2;
+
+        beforeEach(function(done) {
+            entries1 = $('.entry');
+            loadFeed(1, done);
+        });
+
+        it('loads new feed', function(done) {
+            entries2 = $('.entry');
+            for (var i = 0; i < entries2.length; i++) {
+                expect(entries1[i].children[0].innerHTML == entries2[i].children[0].innerHTML).toBe(false);
+                expect(entries1[i].children[1].innerHTML == entries2[i].children[1].innerHTML).toBe(false);
+            }
+
+            done();
+        });
+     });
 }());
