@@ -25,30 +25,27 @@ $(function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
         });
-
-
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-         it('has acceptable URL', function() {
+        it('has acceptable URL', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.url).toBeDefined();
                 expect(feed.url).not.toBe('');
             });
-         });
+        });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
-         it('has a name', function() {
+        it('has a name', function() {
             allFeeds.forEach(function(feed) {
                 expect(feed.name).toBeDefined();
                 expect(feed.name).not.toBe('');
             });
-         });
-
+        });
     });
 
 
@@ -59,24 +56,29 @@ $(function() {
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-         it('menu hidden', function() {
+        it('menu hidden', function() {
+            // Check if body class has the menu-hidden attribute
             expect($('body').attr('class')).toBe('menu-hidden');
-         });
-
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-          it('menu toggles', function() {
+        });
+        /* TODO: Write a test that ensures the menu changes
+         * visibility when the menu icon is clicked. This test
+         * should have two expectations: does the menu display when
+         * clicked and does it hide when clicked again.
+        */
+        it('menu toggles', function() {
+            // Simulate clicking on the menu
             $('.menu-icon-link').trigger('click');
+            // Check to see if body class has no attribute
             expect($('body').attr('class')).toBe('');
+            // Simulate clicking on the menu again
             $('.menu-icon-link').trigger('click');
+            // Check to see if the body class has menu-hidden attribute
             expect($('body').attr('class')).toBe('menu-hidden');
-          });
+        });
     });
     /* TODO: Write a new test suite named "Initial Entries" */
     describe('Initial Entries', function() {
+        // Load the first feed in the array of feeds
         beforeEach(function(done) {
             loadFeed(0, function() {
                 done();
@@ -88,10 +90,11 @@ $(function() {
          * Remember, loadFeed() is asynchronous so this test wil require
          * the use of Jasmine's beforeEach and asynchronous done() function.
          */
-         it('has an entry', function(done) {
+        it('has an entry', function(done) {
+            // Check that the number of entries in the feed is more than 0
             expect($('.entry-link').length).toBeGreaterThan(0);
             done();
-         });
+        });
     });
     /* TODO: Write a new test suite named "New Feed Selection" */
     describe('New Feed Selection', function() {
@@ -100,19 +103,20 @@ $(function() {
          * Remember, loadFeed() is asynchronous.
          */
         var entries1, entries2;
-
         beforeEach(function(done) {
+            // First set of entries from first feed in array
             entries1 = $('.entry');
+            // Load the entries in the second feed in array
             loadFeed(1, done);
         });
-
         it('loads new feed', function(done) {
             entries2 = $('.entry');
             for (var i = 0; i < entries2.length; i++) {
+                // Check if content of h2 is the same
                 expect(entries1[i].children[0].innerHTML == entries2[i].children[0].innerHTML).toBe(false);
+                // Check if content of p is the same
                 expect(entries1[i].children[1].innerHTML == entries2[i].children[1].innerHTML).toBe(false);
             }
-
             done();
         });
      });
