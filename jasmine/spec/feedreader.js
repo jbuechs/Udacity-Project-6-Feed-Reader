@@ -58,18 +58,15 @@ $(function() {
     describe('Initial Entries', function() {
         // Load the first feed in the array of feeds
         beforeEach(function(done) {
-            loadFeed(0, function() {
-                done();
-            });
+            loadFeed(0, done);
         });
         /* Thi test ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
          */
-        it('has an entry', function(done) {
+        it('has an entry', function() {
             // Check that the number of entries in the feed is more than 0
-            expect($('.entry-link').length).toBeGreaterThan(0);
-            done();
+            expect($('.feed .entry').length).toBeGreaterThan(0);
         });
     });
 
@@ -79,17 +76,19 @@ $(function() {
          */
         var feed1, feed2;
         beforeEach(function(done) {
-            // Load the html in the initial feed
-            feed1 = $('.feed').html();
-            // Load the second feed in array
+            $('.feed').empty();
+            loadFeed(0, function() {
+                // Load the html in the initial feed
+                feed1 = $('.feed').html();
+            });
+            // Load a second feed
             loadFeed(1, done);
         });
-        it('loads new feed', function(done) {
+        it('loads new feed', function() {
             // Load the html in the second feed
             feed2 = $('.feed').html();
             // Check that the html of the two feeds does not match
             expect(feed1 == feed2).toBe(false);
-            done();
         });
      });
 }());
